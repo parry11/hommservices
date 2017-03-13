@@ -1,0 +1,120 @@
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<div class="container" style="padding-top: 103px; padding-bottom: 20px;">
+  <div class="inner-container">
+    <div class="mybreadcrumb"><a href="/">Home</a> > <span>Profile</span></div>
+  </div>
+</div>
+<div class="vendor_profile_info">
+    <div class="vendor_profile">
+        <img src="{{user.image}}"/>
+        <div class="vendor_title vendor_info">{{user.name}}<div style="font-size:14px;">{{user.email}}</div></div>
+    </div>
+</div>
+<div class="container" style="padding-top: 13px;">
+    <div class="inner-container">
+        <div class="gallery-section">
+            <div id="tabs">
+              <ul>
+                <li><a href="#tabs-1">My Info</a></li>
+              </ul>
+              <div id="tabs-1">
+                <form name="save-profile" id="save-profile" method="post">
+                  <div class="addCats-danger alert alert-danger" style="display:none;">Select atleast one category!</div>
+                  <div class="info1">
+                      <input type="text" name="name" id="name" placeholder="Name" value="{{user.name}}" required>
+                      <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number" value="{{user.phone_number}}" required>
+                  </div>
+                  <div class="info2">
+                      <input type="text" name="address" id="address" placeholder="Address" value="{{user.address}}" required>
+                  </div>
+                  <input type="hidden" name="user_id" id="user_id" value="{{user.id}}"/>
+                  <input type="hidden" name="destination" id="destination" value=""/>
+                  <input type="submit" name="submit_info" class="submit_info" value="Save" style="margin-top: 20px;"/>
+                </form>
+              </div>
+            </div>
+        </div>
+        <div class="popular-section">
+			<div class="main-title">Popular Vendors</div>
+			{{#each popVen}}
+				<div class="pop-vendor"><a href="/vendors/detail/{{this.vendor_slug}}"><img src="{{this.vendor_image}}"></a></div>
+				<div class="title"><a href="/vendors/detail/{{this.vendor_slug}}">{{this.vendor_title}}</a></div>
+				<div class="prop">{{this.location}}</div>
+			{{/each}}
+        </div>
+    </div>
+</div>
+
+<!-- Info Save Success Modal -->
+<div class="modal fade" id="infosave_success_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+      </div>
+
+      <!-- body -->
+      <div class="modal-body">
+        <img src="/images/message.png"/>
+      </div>
+
+      <!-- button -->
+      <div class="modal-footer myfooter">
+        <p class="great">Great!</p>
+        <p class="great_msg">Info Saved!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Info Save Success Modal Ends -->
+<script>
+$( function() {
+    $( "#tabs" ).tabs();
+} );
+
+jQuery('#save-profile').on('submit', function(e) {
+	e.preventDefault();
+	jQuery('.addCats-danger').css('display', 'none');
+	var formData = jQuery('#save-profile').serializeArray();
+	jQuery.ajax({
+		type: 'POST',
+		data: formData,
+		url: '/users/updateUserProfile',
+	  success: function(data){
+	    if(data.status == true){
+	      jQuery('#infosave_success_modal').modal('show');
+	      setTimeout(function(){
+	        jQuery('#infosave_success_modal').modal('hide');
+	        //location.reload();
+	      }, 2000);
+	    }else{
+	    }
+	  }
+	});
+});
+
+jQuery('#upload-image').on('submit', function(e){
+  e.preventDefault();
+  //var formData = jQuery(this).serializeArray(); 
+  //var formData = new FormData(jQuery(this)[0]);
+  var formData = new FormData(this);
+  console.log(formData);
+  jQuery.ajax({
+    type: 'POST',
+    data: formData,
+    url: '/vendors/uploadImages',
+    contentType: false,
+    processData: false,
+    success: function(data){
+      if(data.status == true){
+        jQuery('#createalbum').modal('hide');
+        jQuery('.album-list-view').css('display', 'none');
+        jQuery('.album-view #album_id').val(data.album_id);
+        jQuery('.album-view').css('display', 'block');
+      }
+    }
+  });
+});
+</script>

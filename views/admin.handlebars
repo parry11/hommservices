@@ -1,0 +1,27 @@
+{{#if login}}
+	<div class="container" style="padding-top: 13px;">
+		<div class="inner-container">
+		<form action="updateConfiguration" method="post">
+		{{#each conf}}
+			<div class="setting">
+				<label>{{makeLabel name}}</label>
+				<input type="text" name="{{name}}" value="{{value}}"/>
+			</div>
+		{{/each}}
+		<input type="submit" name="save_setting" value="Save"/>
+		</form>
+		</div>
+	</div>
+{{else}}
+	<div class="container" style="padding-top: 13px;">
+		<div class="inner-container">
+			<form action="users/login" method="post">
+				<label>Email</label>
+				<input type="text" placeholder="Email" name="username" required>
+				<label>Password</label>
+				<input type="password" name="password" required>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+	</div>
+{{/if}}

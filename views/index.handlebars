@@ -1,0 +1,71 @@
+<div class="search-filter">
+    <div class="search-content">
+        <div class="search-text">Find the best <span>Vendors</span> in <span>Chandigarh</span></div>
+        <div class="search-box">
+          <select name="category" class="vendor" id="vendor_category">
+            <option value="">Select Vendor Category</option>
+            {{# each venCats}}
+              <option value="{{this.vendor_category_id}}">{{this.category_name}}</option>
+            {{/each}}
+          </select>
+          <select name="city" class="city" id="city">
+            <option value="">Select City</option>
+            {{# each locations}}
+              <option value="{{this.id}}">{{this.location}}</option>
+            {{/each}}
+          </select>
+          <input type="button" id="search_vendors" value="Search Vendors"/>
+        </div>
+    </div>
+</div><!-- /.search-filter -->
+<div class="container">
+  <div class="row pop-events">
+    <div class="col-lg-9">
+      <div class="popular-events-head">Most Popular Events</div>
+      <!--<div class="events-text">Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing</div>-->
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    {{#each popEvents}}
+    <div class="col-lg-3">
+      <img src="/images/pop-event.png">
+      <!--<div class="love-img"><img src="/images/event-love.png"></div>-->
+      <div class="event-detail">
+        <div class="event-date">
+          <div class="date">Event Type: {{this.category_name}}</div>
+          <div class="month">Events Hosted: {{this.events_hosted}}</div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  {{#ifCountFour popvenCount}}
+  <div class="row pop-vendors">
+    <div class="col-lg-9">
+      <div class="popular-events-head">Popular Vendors</div>
+      <!--<div class="events-text">Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing. Lorem Ipsum is simply dummy text of the printing</div>-->
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    {{#each popven}}
+      <div class="col-lg-3">
+        <a href="/vendors/detail/{{this.vendor_slug}}"><img class="pop_ven_img" src="{{this.vendor_image}}"></a>
+        <div class="vendor-det">
+          <div class="title"><a href="/vendors/detail/{{this.vendor_slug}}">{{this.vendor_title}}</a></div>
+          <div class="prop">{{this.location}}</div>
+          <div class="see-all"><a href="/vendors/detail/{{this.vendor_slug}}">View Profile</a></div>
+        </div>
+      </div>
+    {{/each}}
+    <!--<div class="see-all"><input type="button" value="See All"></div>-->
+  </div>
+  {{/ifCountFour}}
+
+</div><!-- /.container -->

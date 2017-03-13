@@ -1,0 +1,32 @@
+{
+  "name": "weddingapp",
+  "version": "1.0.0",
+  "description": "Event Creator Application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pradeep Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "handlebars": "^4.0.5",
+    "mongodb": "*",
+    "mongoose": "*",
+    "multer": "^1.3.0",
+    "mysql": "^2.5.4",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "path": "^0.12.7",
+    "toastr": "^2.1.2"
+  }
+}

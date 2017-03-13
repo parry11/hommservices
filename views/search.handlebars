@@ -1,0 +1,52 @@
+<div class="container" style="padding-top: 103px;">
+  <div class="inner-container">
+    <div class="mybreadcrumb"><a href="/">Home</a> > <span>Vendors</span></div>
+    <div class="vendor_filter">
+		<select name="category" class="vendor" id="vendor_category">
+			<option value="">Select Vendor Category</option>
+			{{# each venCats}}
+				<option value="{{this.vendor_category_id}}" {{dropdownSelectedValue this.vendor_category_id this.selected}}>{{this.category_name}}</option>
+			{{/each}}
+		</select>
+		<select name="city" class="city" id="city">
+			<option value="">Select City</option>
+			{{# each locations}}
+				<option value="{{this.id}}" {{dropdownSelectedValue this.id this.selected}}>{{this.location}}</option>
+			{{/each}}
+		</select>
+    	<input type="button" class="filter_result" id="search_vendors" value="Search Vendors" />
+    </div>
+    <div class="page-title">
+    	<div class="img"><img src="/images/home-icon.png"/></div>
+	    <div class="title">{{vendorTitle catName}} - <span>{{vendors_count}} results</span></div>
+    </div>
+    
+    {{#vendors}}
+        {{#checkModulus @index 0 'normal'}}
+        <div class="row vendor-cat">
+        {{/checkModulus}}
+        {{#checkModulus @index 4 'normal'}}
+        <div class="row vendor-cat">
+        {{/checkModulus}}
+            <div class="col-lg-3">
+                <a href="/vendors/detail/{{vendor_slug}}"><img class="vendor-ftr" src="{{vendor_image}}"></a>
+                <div class="vendor-info">
+                    <div class="vendor-name"><a href="/vendors/detail/{{vendor_slug}}">{{vendor_title}}</a></div>
+                    <div class="vendor-loc"><img src="/images/location-icon.png"/>{{location}}</div>
+                    <div class="vendor-budget"><img src="/images/rupee_icon.png"/>{{min_price}}-{{max_price}}</div>
+                    <!--<div class="vendor-rating">Ratings</div>-->
+                </div>
+            </div>
+        {{#checkModulus @index 4 'deluxe'}}
+        </div>
+        <hr class="vlist">
+        {{/checkModulus}}
+        {{#countMeet @index this.count}}
+        </div>
+        <hr class="vlist">
+        {{/countMeet}}
+    {{/vendors}}
+
+
+  </div>
+</div>
