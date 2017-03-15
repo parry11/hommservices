@@ -26,7 +26,6 @@ module.exports.getVendorListing = function(category_id,latitude,longitude,offset
 // get vendor listing count
 module.exports.getVendorListingCount = function(category_id,latitude,longitude, callback){
 	var query = "SELECT v.id,6371 * ACOS(SIN(RADIANS( "+latitude+" )) * SIN(RADIANS(v.latitude)) + COS(RADIANS( "+latitude+" )) * COS(RADIANS(v.latitude)) * COS(RADIANS(v.longitude) -RADIANS( "+longitude+"))) AS distance FROM vendor_assigned_category as vac LEFT JOIN vendors as v ON vac.device_id = v.device_id WHERE vac.category_id="+category_id+" HAVING distance <= 50 ORDER BY distance ASC";
-	console.log(query);
 	connection.query(query, callback);
 }
 
