@@ -10,20 +10,6 @@ var connection = mysql.createConnection({
 	database: db.database
 });
 
-// get configuration settings
-module.exports.getConfigurationSettings = function(callback){
-	var query = "SELECT * FROM configuration";
-	connection.query(query, function(err, result){
-		if(err){
-			console.log(err);
-			callback(err, null);
-		}else{
-			callback(null, result);
-		}
-	});
-}
-
-
 // get feedback by device id
 module.exports.getFeedback = function(deviceId, callback){
 	var query = "SELECT * FROM feedback WHERE device_id = '"+deviceId+"'";

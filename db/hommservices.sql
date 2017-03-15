@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2017 at 02:02 PM
+-- Generation Time: Mar 15, 2017 at 12:00 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -23,15 +23,108 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `configuration`
+--
+
+CREATE TABLE `configuration` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `configuration`
+--
+
+INSERT INTO `configuration` (`id`, `name`, `value`) VALUES
+(1, 'vendor_listing_per_page', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `device_id` varchar(255) NOT NULL,
+  `feedback` text NOT NULL,
+  `created` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `settings`
 --
 
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
+  `device_id` varchar(255) NOT NULL,
   `device_token` varchar(255) NOT NULL,
   `push_notification` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'On = 1, Off = 0',
   `created` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `device_id`, `device_token`, `push_notification`, `created`) VALUES
+(1, 'hbdsDHSD', 'apsdfghtuuity', 1, '2017-03-13 17:45:49'),
+(2, 'hbdsDHSR', 'apsdfghtuuitr', 1, '2017-03-13 17:46:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendors`
+--
+
+CREATE TABLE `vendors` (
+  `id` int(11) NOT NULL,
+  `device_id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `fee` varchar(255) DEFAULT NULL,
+  `address` varchar(255) NOT NULL,
+  `timings` varchar(255) NOT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `latitude` varchar(255) NOT NULL,
+  `longitude` varchar(255) NOT NULL,
+  `rating` float NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vendors`
+--
+
+INSERT INTO `vendors` (`id`, `device_id`, `name`, `phone_number`, `fee`, `address`, `timings`, `picture`, `latitude`, `longitude`, `rating`, `created`) VALUES
+(1, 'hbdsDHSR', 'Arora Electricals', '1234567890', '200-500', 'Phase 4, Mohali', '9AM-9PM', NULL, '30.709050', '76.718681', 0, '2017-03-13 18:55:54'),
+(3, 'hbdsDHSD', 'Vinayak Appliances', '9834567890', '500-1000', 'Phase 3, Mohali', '9AM-9PM', NULL, '30.739834', '76.782702', 0, '2017-03-13 19:05:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendor_assigned_category`
+--
+
+CREATE TABLE `vendor_assigned_category` (
+  `id` int(11) NOT NULL,
+  `device_id` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `created` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vendor_assigned_category`
+--
+
+INSERT INTO `vendor_assigned_category` (`id`, `device_id`, `category_id`, `created`) VALUES
+(1, 'hbdsDHSR', 1, '2017-03-13 19:02:56'),
+(2, 'hbdsDHSR', 2, '2017-03-13 19:02:56'),
+(3, 'hbdsDHSD', 1, '2017-03-13 19:05:57'),
+(4, 'hbdsDHSD', 4, '2017-03-13 19:05:57');
 
 -- --------------------------------------------------------
 
@@ -76,14 +169,56 @@ INSERT INTO `vendor_category` (`vendor_category_id`, `category_name`, `category_
 (17, 'Accessories', 'accessories', '/images/vendor-cat/accessories.png', '/images/vendor-cat/mobile/drawable-hdpi/accessories_pic.9.png', '/images/vendor-cat/mobile/drawable-mdpi/accessories_pic.9.png', '/images/vendor-cat/mobile/drawable-xhdpi/accessories_pic.9.png', '/images/vendor-cat/mobile/drawable-xxhdpi/accessories_pic.9.png', '/images/vendor-cat/mobile/drawable-xxxhdpi/accessories_pic.9.png', '2016-09-01 00:00:00'),
 (18, 'Favors', 'favors', '/images/vendor-cat/favors.png', '/images/vendor-cat/mobile/drawable-hdpi/favor_pic.9.png', '/images/vendor-cat/mobile/drawable-mdpi/favor_pic.9.png', '/images/vendor-cat/mobile/drawable-xhdpi/favor_pic.9.png', '/images/vendor-cat/mobile/drawable-xxhdpi/favor_pic.9.png', '/images/vendor-cat/mobile/drawable-xxxhdpi/favor_pic.9.png', '2016-09-01 00:00:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendor_reviews`
+--
+
+CREATE TABLE `vendor_reviews` (
+  `id` int(11) NOT NULL,
+  `vendor_device_id` varchar(255) NOT NULL,
+  `user_device_id` varchar(255) NOT NULL,
+  `review` text NOT NULL,
+  `rating` int(11) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `configuration`
+--
+ALTER TABLE `configuration`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `device_id` (`device_id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `device_id` (`device_id`);
+
+--
+-- Indexes for table `vendors`
+--
+ALTER TABLE `vendors`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `device_id` (`device_id`);
+
+--
+-- Indexes for table `vendor_assigned_category`
+--
+ALTER TABLE `vendor_assigned_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -93,19 +228,52 @@ ALTER TABLE `vendor_category`
   ADD PRIMARY KEY (`vendor_category_id`);
 
 --
+-- Indexes for table `vendor_reviews`
+--
+ALTER TABLE `vendor_reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `vendor_device_id` (`vendor_device_id`),
+  ADD UNIQUE KEY `user_device_id` (`user_device_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `configuration`
+--
+ALTER TABLE `configuration`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `vendors`
+--
+ALTER TABLE `vendors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `vendor_assigned_category`
+--
+ALTER TABLE `vendor_assigned_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `vendor_category`
 --
 ALTER TABLE `vendor_category`
   MODIFY `vendor_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `vendor_reviews`
+--
+ALTER TABLE `vendor_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,8 +1,7 @@
 // custom functions - function.js
 
-//Get email configuration
 //Get notification configuration
-var FCM = require('fcm-push');
+//var FCM = require('fcm-push');
 var setting = require('./setting');
 var set = setting.notification;
 
