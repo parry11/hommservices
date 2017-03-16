@@ -105,7 +105,7 @@ module.exports.addVendor = function(vendorInfo, vendorCatInfo, callback){
 			callback(err, null);
 		}else{
 			for(var i in vendorCatInfo){
-				var sql1 = "INSERT INTO vendor_assigned_category (device_id, category_id, created) VALUES ('"+vendorInfo.device_id+"', '"+vendorCatInfo.category_id+"', NOW())";
+				var sql1 = "INSERT INTO vendor_assigned_category (device_id, category_id, created) VALUES ('"+vendorInfo.device_id+"', '"+vendorCatInfo[i].category_id+"', NOW())";
 				connection.query(sql1);
 			}
 			callback(null, result);
@@ -124,7 +124,7 @@ module.exports.updateVendor = function(vendorInfo, vendorCatInfo, callback){
 			var del = "DELETE FROM vendor_assigned_category WHERE device_id = '"+vendorInfo.device_id+"'";
 			connection.query(del);
 			for(var i in vendorCatInfo){
-				var sql1 = "INSERT INTO vendor_assigned_category (device_id, category_id, created) VALUES ('"+vendorInfo.device_id+"', '"+vendorCatInfo.category_id+"', NOW())";
+				var sql1 = "INSERT INTO vendor_assigned_category (device_id, category_id, created) VALUES ('"+vendorInfo.device_id+"', '"+vendorCatInfo[i].category_id+"', NOW())";
 				connection.query(sql1);
 			}
 			callback(null, result);
