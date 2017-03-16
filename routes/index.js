@@ -98,7 +98,7 @@ router.post('/vendor-listing', function(req, res){
 					if(vendorList.length > 0){
 						vendorList.forEach(function(value){
 							value.picture = url+"/"+value.picture;
-							/*value.distance = value.distance.toFixed(2);
+							value.distance = value.distance.toFixed(2);
 							if(value.distance < 1){
 								value.distance = value.distance*1000;
 								var dis = value.distance;
@@ -109,7 +109,7 @@ router.post('/vendor-listing', function(req, res){
 							}else{
 								var dis = value.distance;
 								value.distance = dis.toString()+ ' Kms';
-							}*/
+							}
 						});
 						res.json({status:true,message:"Vendor List fetched successfully!",vendorList:vendorList,totPages:totPages});
 					}else{
