@@ -107,21 +107,25 @@ router.get('/reviews', function(req, res){
 });
 
 // add vendor
-router.post('/addVendor', function(req, res){
-	var deviceId = req.body.device_id;
-	var name = req.body.name;
-	var phone_number = req.body.phone_number;
-	var fee = req.body.fee;
-	var address = req.body.address;
-	var timings = req.body.timings;
-	var latitude = req.body.latitude;
-	var longitude = req.body.longitude;
-	var vendorCatInfo = req.body.vendor_categories;
+router.post('/addVendor', upload.single('picture'), function(req, res){
+	var vendorData = req.body.vendor_data;
+	var vendorData = JSON.parse(vendorData);
+	var deviceId = vendorData.device_id;
+	var name = vendorData.name;
+	var phone_number = vendorData.phone_number;
+	var fee = vendorData.fee;
+	var address = vendorData.address;
+	var timings = vendorData.timings;
+	var latitude = vendorData.latitude;
+	var longitude = vendorData.longitude;
+	var vendorCatInfo = vendorData.vendor_categories;
 
-	var uploadImageData = req.body.picture;
-	var uploadImageData = JSON.parse(uploadImageData);
-    var fileName = req.file.filename;
-    var destination = 'images/vendor_images/'+fileName;
+	if(!req.file){
+	    var destination = '';
+	}else{
+	    var fileName = req.file.filename;
+		var destination = 'images/vendor_images/'+fileName;
+	}
 
 	// Validation
 	if(deviceId == '' || deviceId == undefined){
