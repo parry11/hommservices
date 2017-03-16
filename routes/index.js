@@ -102,7 +102,7 @@ router.post('/vendor-listing', function(req, res){
 							if(value.distance < 1){
 								value.distance = value.distance*1000;
 								var dis = value.distance;
-								value.distance = dis.toString()+ ' meteres';
+								value.distance = dis.toString()+ ' meters';
 							}else if(value.distance == 1){
 								var dis = value.distance;
 								value.distance = dis.toString()+ ' Km';
