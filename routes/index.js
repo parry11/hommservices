@@ -51,7 +51,7 @@ router.post('/vendor-categories', function(req, res){
 			});
 			if(vendorCat.length > 0){
 				vendorCat.forEach(function(value){
-					value.category_image = url+"/"+value.category_image;
+					value.category_image = url+value.category_image;
 				});
 			}
 			if(err){
