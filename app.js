@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var multer  = require('multer')
 
 //global.url = 'http://localhost:4000';
-global.url = 'http://52.33.209.165:4000';
+global.url = 'http://52.33.209.165:5000';
 
 var config = require('./mysql');
 var db = config.database;
