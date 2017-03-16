@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var multer  = require('multer')
 
 //global.url = 'http://localhost:4000';
-global.url = 'http://52.33.209.165:5000';
+global.url = 'http://52.33.209.165:4000';
 
 var config = require('./mysql');
 var db = config.database;
@@ -62,7 +62,7 @@ app.use('/', routes);
 app.use('/vendors', vendors);
 
 // Set Port
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 4000));
 
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
