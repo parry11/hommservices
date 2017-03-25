@@ -70,7 +70,7 @@ module.exports.addReview = function(vendor_device_id, user_device_id, review, ra
 
 // vendor update review
 module.exports.updateReview = function(vendor_device_id, user_device_id, review, rating, callback){
-	connection.query("UPDATE vendor_reviews SET review = '"+review+"', rating = "+rating+" WHERE user_device_id = '"+user_device_id+"' AND user_device_id = '"+user_device_id+"'", function(err, result){
+	connection.query("UPDATE vendor_reviews SET review = '"+review+"', rating = "+rating+" WHERE user_device_id = '"+user_device_id+"' AND vendor_device_id = '"+vendor_device_id+"'", function(err, result){
 		if(err){
 			console.log(err);
 			callback(err, null);
