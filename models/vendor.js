@@ -139,7 +139,7 @@ module.exports.updateAvgRating = function(vendor_device_id, callback){
 		rows.forEach(function(value){
 			rows = value;
 		});
-		var query1 = "UPDATE vendors SET rating = "+rows.rating+" WHERE vendor_device_id = '"+vendor_device_id+"'";
+		var query1 = "UPDATE vendors SET rating = "+rows.rating+" WHERE device_id = '"+vendor_device_id+"'";
 		connection.query(query1, function(err, result){
 			if(err){
 				console.log(err);
