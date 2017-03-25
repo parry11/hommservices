@@ -134,7 +134,7 @@ module.exports.updateVendor = function(vendorInfo, vendorCatInfo, callback){
 
 // update average rating of vendor
 module.exports.updateAvgRating = function(vendor_device_id, callback){
-	var query = "SELECT AVG(rating) as rating FROM vendor_reviews WHERE vendor_device_id = "+vendor_device_id+"";
+	var query = "SELECT AVG(rating) as rating FROM vendor_reviews WHERE vendor_device_id = '"+vendor_device_id+"'";
 	console.log(query);
 	connection.query(query, function(err, rows, fields){
 		console.log(rows);
