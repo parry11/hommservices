@@ -57,7 +57,7 @@ module.exports.ifReviewExist = function(vendor_device_id, user_device_id, callba
 
 // vendor add review
 module.exports.addReview = function(vendor_device_id, user_device_id, review, rating, callback){
-	connection.query("INSERT INTO vendor_reviews (vendor_id, user_id, review, rating, created) VALUES ('"+vendor_device_id+"', '"+user_device_id+"', '"+review+"', "+rating+", NOW())", function(err, result){
+	connection.query("INSERT INTO vendor_reviews (vendor_device_id, user_device_id, review, rating, created) VALUES ('"+vendor_device_id+"', '"+user_device_id+"', '"+review+"', "+rating+", NOW())", function(err, result){
 		if(err){
 			console.log(err);
 			callback(err, null);
