@@ -135,15 +135,11 @@ module.exports.updateVendor = function(vendorInfo, vendorCatInfo, callback){
 // update average rating of vendor
 module.exports.updateAvgRating = function(vendor_device_id, callback){
 	var query = "SELECT AVG(rating) as rating FROM vendor_reviews WHERE vendor_device_id = '"+vendor_device_id+"'";
-	console.log(query);
 	connection.query(query, function(err, rows, fields){
 		rows.forEach(function(value){
 			rows = value;
 		});
-		console.log(rows);
-		console.log(rows.rating);
-		console.log(fields);
-		var query1 = "UPDATE vendors SET rating = "+rows[0].rating+" WHERE vendor_device_id = "+vendor_device_id+"";
+		var query1 = "UPDATE vendors SET rating = "+rows.rating+" WHERE vendor_device_id = "+vendor_device_id+"";
 		connection.query(query1, function(err, result){
 			if(err){
 				console.log(err);
