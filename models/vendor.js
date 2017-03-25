@@ -19,7 +19,8 @@ module.exports.getVendorCategories = function(resolution, callback){
 
 // get vendor listing
 module.exports.getVendorListing = function(category_id,latitude,longitude,offset,recordsToShow, callback){
-	var query = "SELECT v.*,vac.category_id,6371 * ACOS(SIN(RADIANS( "+latitude+" )) * SIN(RADIANS(v.latitude)) + COS(RADIANS( "+latitude+" )) * COS(RADIANS(v.latitude)) * COS(RADIANS(v.longitude) -RADIANS( "+longitude+"))) AS distance FROM vendor_assigned_category as vac LEFT JOIN vendors as v ON vac.device_id = v.device_id WHERE vac.category_id="+category_id+" HAVING distance <= 50 ORDER BY distance ASC LIMIT "+offset+","+recordsToShow+"";
+	var query = "SELECT v.*,vac.category_id,6371 * ACOS(SIN(RADIANS( "+latitude+" )) * SIN(RADIANS(v.latitude)) + COS(RADIANS( "+latitude+" )) * COS(RADIANS(v.latitude)) * COS(RADIANS(v.longitude) -RADIANS( "+longitude+"))) AS distance, vr.review,vr.rating,vr.created as reviewDate FROM vendor_assigned_category as vac LEFT JOIN vendors as v ON vac.device_id = v.device_id LEFT JOIN vendor_reviews as vr ON v.device_id = vr.vendor_device_id WHERE vac.category_id="+category_id+" HAVING distance <= 50 ORDER BY distance ASC LIMIT "+offset+","+recordsToShow+"";
+	//var query = "SELECT v.*,vac.category_id,6371 * ACOS(SIN(RADIANS( "+latitude+" )) * SIN(RADIANS(v.latitude)) + COS(RADIANS( "+latitude+" )) * COS(RADIANS(v.latitude)) * COS(RADIANS(v.longitude) -RADIANS( "+longitude+"))) AS distance FROM vendor_assigned_category as vac LEFT JOIN vendors as v ON vac.device_id = v.device_id WHERE vac.category_id="+category_id+" HAVING distance <= 50 ORDER BY distance ASC LIMIT "+offset+","+recordsToShow+"";
 	connection.query(query, callback);
 }
 
