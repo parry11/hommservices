@@ -76,7 +76,7 @@ router.post('/add-review', function(req, res){
 });
 
 // vendor get reviews
-router.get('/reviews', function(req, res){
+router.post('/reviews', function(req, res){
 	var vendor_device_id = req.body.vendor_device_id;
 
 	// Validation
