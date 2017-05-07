@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 // get vendor categories
 module.exports.getVendorCategories = function(resolution, callback){
 	var resolution_image = "category_image_"+resolution;
-	var query = "SELECT vendor_category_id,category_name,"+resolution_image+" as category_image FROM vendor_category";
+	var query = "SELECT vendor_category_id,category_name,"+resolution_image+" as category_image,category_detail_image FROM vendor_category";
 	connection.query(query, callback);
 }
 
