@@ -35,7 +35,7 @@ module.exports.updateFeedback = function(fdb, callback){
 
 // update settings
 module.exports.updateSettings = function(sett, callback){
-	connection.query("UPDATE settings SET notification = "+sett.notification+" WHERE device_id = '"+sett.device_id+"'", callback);
+	connection.query("UPDATE settings SET push_notification = "+sett.notification+" WHERE device_id = '"+sett.device_id+"'", callback);
 }
 
 // get settings
